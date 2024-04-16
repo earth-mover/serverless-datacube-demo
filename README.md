@@ -1,4 +1,4 @@
-add # Serverless Sentinel Mosaic
+# Serverless Sentinel Mosaic
 
 This repo demonstrates how to build a Zarr-based data cube from [Sentinel 2 L2A Data](https://registry.opendata.aws/sentinel-2-l2a-cogs/)
 in the AWS Open Data Program.
