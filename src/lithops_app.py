@@ -6,7 +6,6 @@ from lib import ChunkProcessingJob, ChunkProcessingResult
 def process_chunk(
     job: ChunkProcessingJob, array: zarr.Array, debug: bool
 ) -> ChunkProcessingResult:
-    # arraylake.config.set({"chunkstore.uri": "s3://arraylake-test"})
     return job.process(array, debug=debug)
 
 
