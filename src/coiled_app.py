@@ -1,6 +1,7 @@
 import coiled
 import zarr
 from lib import ChunkProcessingJob, ChunkProcessingResult
+from tqdm import tqdm
 
 
 @coiled.function(
@@ -23,6 +24,12 @@ def spawn_coiled_jobs(
 
     # map does not return futures - hard to monitor progress
     jobs = list(jobs)
-    results = process_chunk.map(jobs, array=array, debug=debug)
+    results = list(
+        tqdm(
+            process_chunk.map(jobs, array=array, debug=debug, retries=5),
+            total=len(jobs),
+            desc="Jobs Completed",
+        )
+    )
 
     return results

@@ -83,19 +83,19 @@ from storage import ArraylakeStorage, ZarrFSSpecStorage
 )
 @click.option(
     "--arraylake-repo-name",
-)
-@click.option(
-    "--arraylake-bucket-nickname",
+    help="Name of the Arraylake repo to use for storage.",
 )
 @click.option("--fsspec-uri")
 @click.option(
     "--limit",
     type=int,
+    help="Limit the number of chunks to process.",
 )
 @click.option(
     "--debug",
     is_flag=True,
     default=False,
+    help="Enable debug logging.",
 )
 @click.option(
     "--initialize/--no-initialize",
@@ -116,7 +116,6 @@ def main(
     serverless_backend: str,
     storage_backend: str,
     arraylake_repo_name: str | None,
-    arraylake_bucket_nickname: str | None,
     fsspec_uri: str | None,
     limit: int | None,
     initialize: bool,
@@ -135,10 +134,7 @@ def main(
     )
 
     if storage_backend == "arraylake":
-        storage = ArraylakeStorage(
-            repo_name=arraylake_repo_name,
-            bucket_nickname=arraylake_bucket_nickname,
-        )
+        storage = ArraylakeStorage(repo_name=arraylake_repo_name)
     elif storage_backend == "fsspec":
         storage = ZarrFSSpecStorage(uri=fsspec_uri)
 

@@ -44,9 +44,8 @@ class ZarrFSSpecStorage(AbstractStorage):
 class ArraylakeStorage(AbstractStorage):
     zarr_version = 3
 
-    def __init__(self, repo_name: str, bucket_nickname: str | None = None):
+    def __init__(self, repo_name: str):
         self._repo_name = repo_name
-        self._bucket_nickname = bucket_nickname
         self._client = arraylake.Client()
         self._repo = None
 
@@ -56,9 +55,7 @@ class ArraylakeStorage(AbstractStorage):
         except ValueError:
             pass
         finally:
-            self._repo = self._client.create_repo(
-                self._repo_name, bucket_nickname=self._bucket_nickname
-            )
+            self._repo = self._client.create_repo(self._repo_name)
 
     def get_zarr_store(self):
         if self._repo is None:
