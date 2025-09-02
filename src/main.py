@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 import click
@@ -174,6 +175,7 @@ def main(
     storage.commit(f"Processed {len(jobs)} chunks", results=results)
 
     # save logs
+    os.makedirs("logs", exist_ok=True)
     log_fname = f"logs/{int(datetime.now().timestamp())}-{serverless_backend}.csv"
     save_output_log(results, log_fname)
 
